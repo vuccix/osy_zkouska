@@ -1,0 +1,42 @@
+
+h1 { font-size: xxx-large; }
+
+h2 { font-size: xx-large; width: fit-content; padding-bottom: 0; margin-bottom: 0; }
+
+h2:hover { color: blueviolet; text-decoration: underline; }
+
+h3 { font-size: x-large; width: fit-content; text-decoration: underline; }
+
+h3:hover { color: palevioletred; cursor: pointer; }
+
+.hov:hover { color: palevioletred; cursor: pointer; text-decoration: underline; }
+
+.ans {
+    color: palevioletred;
+}
+
+.mark { color: crimson; font-weight: bolder; }
+
+li {
+    font-size: larger;
+    padding-bottom: .5rem;
+}
+
+li ul li, li ol li {
+    font-size: large;
+}
+
+.content p {
+    font-size: x-large;
+}
+
+.content li p {
+    font-size: large;
+    margin: 5px;
+}
+
+.image {
+    width: 50%;
+}
+
+.hidden { display: none; }

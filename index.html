@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>osy zkouska</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head>
+<body>
+    <h1>OSY zkouska</h1>
+    <h2 data-target="raid">RAID</h2>
+    <div class="content hidden" id="raid">
+        <h3 data-target="raid_0">RAID 0</h3>
+        <ul id="raid_0" class="hidden">
+            <li>Kapacita = <span class="ans">\( \#disk * |disk| \)</span></li>
+            <li>Reading_Speed = <span class="ans">\( min(\#disk * speed, controller, ethernet) \)</span></li>
+            <li>Writing_Speed = <span class="ans">\( Reading\_Speed \)</span></li>
+            <li>Kolik disku muze vypadnout = <span class="ans">\( 0 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(\#month * 2 * 365) = e^{-\frac{t}{\text{MTBF}}} \)</span></li>
+            <li>Cas obnovy = <span class="ans">\( nelze \)</span></li>
+        </ul>
+    
+        <h3 data-target="raid_1">RAID 1</h3>
+        <ul id="raid_1" class="hidden">
+            <li>Kapacita = <span class="ans">\( \frac{\#disk * |disk|}{2} \)</span></li>
+            <li>Reading_Speed = <span class="ans">\( min(2 * speed, controller, ethernet) \)</span></li>
+            <li>Writing_Speed = <span class="ans">\( \frac{Reading\_Speed}{2} \)</span></li>
+            <li>Kolik disku muze vypadnout = <span class="ans">\( 1 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( (1-(1-R(t))^2)^{\#disk/2} \)</span></li>
+            <li>Cas obnovy = <span class="ans">\( \frac{|disk| * 1024}{speed - user} \)</span></li>
+        </ul>
+        
+        <h3 data-target="raid_01">RAID 01</h3>
+        <ul id="raid_01" class="hidden">
+            <li>Kapacita = <span class="ans">\( \frac{\#disk * |disk|}{2} \)</span></li>
+            <li>Reading_Speed = <span class="ans">\( min(\#disk * 2 * speed, controller, ethernet) \)</span></li>
+            <li>Writing_Speed = <span class="ans">\( \frac{Reading\_Speed}{2} \)</span></li>
+            <li>Kolik disku muze vypadnout = <span class="ans">\( 1 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( 1 - (1 - R(t)^{\#disk/2})^2 \)</span></li>
+            <li>Cas obnovy = <span class="ans">\( \frac{\#disk * |disk| * 1024}{Reading\_Speed - user} \)</span></li>
+        </ul>
+
+        <h3 data-target="raid_10">RAID 10</h3>
+        <ul id="raid_10" class="hidden">
+            <li>Kapacita = <span class="ans">\( \frac{\#disk * |disk|}{2} \)</span></li>
+            <li>Reading_Speed = <span class="ans">\( min(\#disk * 2 * speed, controller, ethernet) \)</span></li>
+            <li>Writing_Speed = <span class="ans">\( \frac{Reading\_Speed}{2} \)</span></li>
+            <li>Kolik disku muze vypadnout = <span class="ans">\( 1 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( (1-(1-R(t))^2)^{\#disk/2} \)</span></li>
+            <li>Cas obnovy = <span class="ans">\( \frac{|disk| * 1024}{speed - 2 * \frac{user}{\#disk}} \)</span></li>
+        </ul>
+        
+        <h3 data-target="raid_5">RAID 5</h3>
+        <ul id="raid_5" class="hidden">
+            <li>Kapacita = <span class="ans">\( (\#disk - 1) * |disk| \)</span></li>
+            <li>Reading_Speed = <span class="ans">\( min((\#disk - 1) * speed, controller, ethernet) \)</span></li>
+            <li>Writing_Speed = <span class="ans">\( \frac{\#disk - 1}{\#disk} * Reading\_Speed \)</span></li>
+            <li>Kolik disku muze vypadnout = <span class="ans">\( 1 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(t)^n + n*R(t)^{n-1} * (1-R(t)), n = \#disk \)</span></li>
+            <li>Cas obnovy = <span class="ans">\( \frac{|disk| * 1024}{\frac{Reading\_Speed - user}{\#disk - 1}} \)</span></li>
+        </ul>
+        
+        <h3 data-target="raid_6">RAID 6</h3>
+        <ul id="raid_6" class="hidden">
+            <li>Kapacita = <span class="ans">\( (\#disk -2) * |disk| \)</span></li>
+            <li>Reading_Speed = <span class="ans">\( min((\#disk - 2) * speed, controller, ethernet) \)</span></li>
+            <li>Writing_Speed = <span class="ans">\( \frac{\#disk - 2}{\#disk} * Reading\_Speed \)</span></li>
+            <li>Kolik disku muze vypadnout = <span class="ans">\( 2 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(t)^n + n*R(t)^{n-1}*(1-R(t)) + \binom{n}{2}*R(t)^{n-2}*(1-R(t))^2 \)</span></li>
+            <li>Cas obnovy = <span class="ans">\( \frac{(\#disk - 2)*|disk|*1024}{Reading\_Speed - user} \)</span></li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <h2 data-target="virtual">Virtualni Pamet</h2>
+    <div class="content hidden" id="virtual">
+        <p>
+            Systém používá virtuální paměť se stránkováním. Velikost stránky/rámce je <span class="mark">\(2^x\)</span> B, velikost logické adresy je <span class="mark">\(y\)</span> bitů, velikost fyzické adresy je <span class="mark">\(z\)</span> bitů. Systém používá TLB o velikosti <span class="mark">\(a\)</span> položek (řádek). Na systému právě běží <span class="mark">\(b\)</span> uživatelských procesů...
+        </p>
+        <ul>
+            <li>Logická adresa se skládá z čísla <span class="ans">stránky</span> o velikosti <span class="mark">\( y - x \)</span>, offset je <span class="mark">\(x\)</span></li>
+            <li>Fyzická adresa se skládá z čísla <span class="ans">rámce</span> o velikosti <span class="mark">\( z - x \)</span>, offset je <span class="mark">\(x\)</span></li>
+            <li><span class="hov" data-target="ot3">pro 3. otázku vždy platí tyto odpovědi:</span>
+                <ul id="ot3">
+                    <li>Pro různě velké stránky je velikost offsetu různá</li>
+                    <li>Pro různě velké rámce je velikost offsetu různá</li>
+                    <li>Offset definuje pozici dat uvnitř rámce</li>
+                    <li>Offset definuje pozici dat uvnitř stránky</li>
+                    <li>Při překladu adresy hledáme v tabulce řádku, ve které je záznam o dané stránce</li>
+                    <li>Při překladu adresy hledáme číslo rámce, do kterého se stránka nahrála</li>
+                    <li>Při překladu adresy se číslo stránky používá jako index do klasické tabulky stránek</li>
+                    <li>Při překladu adresy lze použít rozptylovací funkci k urychlení překladu <b>(platí pouze v případě, pokud zadání říká, že používáme invertovanou tabulku stránek)</b></li>
+                </ul>
+            </li>
+            <li><span class="hov" data-target="ot4">pro 4. otázku vždy platí tyto odpovědi:</span>
+                <ol id="ot4">
+                    <li>Pokud zadání říká, že používáme <b>klasickou tabulku stránek</b>, tak platí jen tyto možnosti:
+                        <ul>
+                            <li>Jádro systému si musí pamatovat alespoň <span class="mark">\(b\)</span> tabulek stránek</li>
+                            <li>Jádro systému si musí pamatovat pro každý proces právě jednu tabulku</li>
+                        </ul>
+                    </li>
+                    <li>Pokud zadání říká, že používáme <b>invertovanou tabulku stránek</b>, tak platí jen tato možnost:
+                        <ul>
+                            <li>Jádro systému si musí pamatovat jenom jednu tabulku stránek</li>
+                        </ul>
+                    </li>
+                </ol>
+            </li>
+            <li><span data-target="ot5" class="hov">5. a 6. otázka</span>
+                <div id="ot5">
+                    <p>Na řádce <b>klasické tabulky stránek</b> je uloženo (ČR R M P)</p>
+                    <ul>
+                        <li>Číslo rámce</li>
+                        <li>Reference bit</li>
+                        <li>Modify bit</li>
+                        <li>Present bit</li>
+                    </ul>
+                    <p>Na řádce <b>invertované tabulky stránek</b> je uloženo (ČS ČP R M P)</p>
+                    <ul>
+                        <li>Číslo stránky</li>
+                        <li>Číslo procesu</li>
+                        <li>Reference bit</li>
+                        <li>Modify bit</li>
+                        <li>Present bit</li>
+                    </ul>
+                    <p>Na řádce <b>TLB</b> je uloženo (ČR ČS R M)</p>
+                    <ul>
+                        <li>Číslo rámce</li>
+                        <li>Číslo stránky</li>
+                        <li>Reference bit</li>
+                        <li>Modify bit</li>
+                    </ul>
+                </div>
+            </li>
+            <li>pro 7. otazku plati pouze:
+                <ul>
+                    <li>Současné serverové a desktopové procesory umožňují používat různě velké stránky pro různé procesy</li>
+                    <li>Cache hit ratio TLB se může zvýšit, pokud systém bude používat pro proces větší stránky</li>
+                </ul>
+            </li>
+            <li>8. otazka
+                <ul>
+                    <li>V případě <span class="ans">klasické tabulky</span>: Tabulka stránek bude obsahovat \(2^{y-x}\)</li>
+                    <li>V případě <span class="ans">invertované tabulky</span>: Tabulka stránek bude obsahovat \(2^{z-x}\)</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <h2 data-target="inode">I-Node</h2>
+    <div class="content hidden" id="inode">
+        <img class="image" src="inodes-table.jpg" alt="">
+    </div>
+
+    <hr>
+
+    <h2 data-target="coff">Coffmanovy podminky</h2>
+    <div class="content hidden" id="coff">
+        <img src="cof.png" alt="" class="image">
+    </div>
+
+    <hr>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function toggleVisibility(event) {
+            const targetId = event.target.getAttribute('data-target');
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.classList.toggle('hidden');
+            }
+        }
+
+        const toggleHeaders = document.querySelectorAll('[data-target]');
+        toggleHeaders.forEach(header => {
+            header.addEventListener('click', toggleVisibility);
+        });
+    });
+</script>
+
+</html>

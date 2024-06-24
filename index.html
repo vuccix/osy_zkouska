@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>osy zkouska</title>
+    <title>osy zkouška</title>
     <link rel="stylesheet" href="style.css">
 
     <script type="text/javascript" id="MathJax-script" async
@@ -11,7 +11,7 @@
     </script>
 </head>
 <body>
-    <h1>OSY zkouska</h1>
+    <h1>OSY zkouška</h1>
     <h2 data-target="raid">RAID</h2>
     <div class="content hidden" id="raid">
         <h3 data-target="raid_0">RAID 0</h3>
@@ -77,7 +77,7 @@
 
     <hr>
 
-    <h2 data-target="virtual">Virtualni Pamet</h2>
+    <h2 data-target="virtual">Virtuální Paměť</h2>
     <div class="content hidden" id="virtual">
         <p>
             Systém používá virtuální paměť se stránkováním. Velikost stránky/rámce je <span class="mark">\(2^x\)</span> B, velikost logické adresy je <span class="mark">\(y\)</span> bitů, velikost fyzické adresy je <span class="mark">\(z\)</span> bitů. Systém používá TLB o velikosti <span class="mark">\(a\)</span> položek (řádek). Na systému právě běží <span class="mark">\(b\)</span> uživatelských procesů...
@@ -162,9 +162,59 @@
 
     <hr>
 
-    <h2 data-target="coff">Coffmanovy podminky</h2>
+    <h2 data-target="coff">Úváznutí</h2>
     <div class="content hidden" id="coff">
-        <img src="cof.png" alt="" class="image">
+        <div class="matrix" style="width: fit-content;">
+            \[
+            \begin{array}{} 
+            &\text{Požadované}\\ &
+            \begin{bmatrix}{}
+                5 & 5 & 4 & 4 \\
+                1 & 1 & 1 & 1 \\
+                4 & 4 & 6 & 4 \\
+                3 & 3 & 8 & 4 \\
+                1 & 0 & 0 & 1
+            \end{bmatrix}
+            \end{array}
+
+            -
+
+            \begin{array}{} 
+            &\text{Přidělené}\\ &
+            \begin{bmatrix}{}
+                1 & 0 & 2 & 2 \\
+                1 & 0 & 0 & 1 \\
+                3 & 3 & 0 & 1 \\
+                0 & 2 & 2 & 2 \\
+                1 & 0 & 0 & 1
+            \end{bmatrix}
+            \end{array}
+
+            =
+
+            \begin{array}{} 
+            &\text{Potřebné}\\ &
+            \begin{bmatrix}{}
+                4 & 5 & 2 & 2 \\
+                0 & 1 & 1 & 0 \\
+                1 & 1 & 6 & 3 \\
+                3 & 1 & 6 & 2 \\
+                0 & 0 & 0 & 0
+            \end{bmatrix}
+            \end{array}
+            \]
+
+            \[
+            \begin{array}{} 
+            &\text{Počet prostředků}\\ &
+            \begin{bmatrix}{}
+                1 & 1 & 5 & 2
+            \end{bmatrix}
+            \end{array}
+            \]
+        </div>
+        
+        <img src="cof.png" alt="" style="width: 35%;">
     </div>
 
     <hr>

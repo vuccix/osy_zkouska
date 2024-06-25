@@ -157,7 +157,64 @@
 
     <h2 data-target="inode">I-Node</h2>
     <div class="content hidden" id="inode">
-        <img class="image" src="inodes-table.jpg" alt="">
+        <!-- <img class="image" src="inodes-table.jpg" alt=""> -->
+
+        <table>
+            <tr>
+                <th></th>
+                <th>ln</th>
+                <th>ln -s</th>
+                <th>rm</th>
+                <th>mv (1d)</th>
+                <th>mv (2d)</th>
+                <th>cp</th>
+            </tr>
+            <tr>
+                <th>i-node Read</th>
+                <td>Cesta do adresářů + \(1\)</td>
+                <td>Cesta do cílovéh adr</td>
+                <td>Cesta do adresáře + \(1\)</td>
+                <td>Cesta do adresářů</td>
+                <td>Cesta do adresářů + \(1\)</td>
+                <td>Cesta do adresářů + \(1\)</td>
+            </tr>
+            <tr>
+                <th>i-node Write</th>
+                <td>\(2\)</td>
+                <td>\(2\)</td>
+                <td>\(1\)</td>
+                <td>\(2\)</td>
+                <td>\(3\)</td>
+                <td>\(2\)</td>
+            </tr>
+            <tr>
+                <th>Block Read</th>
+                <td>i-nodeR - \(1\)</td>
+                <td>i-nodeR</td>
+                <td>Indirect + (i-node - \(1\))</td>
+                <td>i-nodeR</td>
+                <td>(i-nodeR - \(1\)) + soubor</td>
+                <td>(i-nodeR - \(1\)) + soubor</td>
+            </tr>
+            <tr>
+                <th>Block Write</th>
+                <td>\(1\)</td>
+                <td>\(2\)</td>
+                <td>\(1\)</td>
+                <td>\(2\)</td>
+                <td>Soubor + \(2\)</td>
+                <td>Soubor + \(1\)</td>
+            </tr>
+            <tr>
+                <th>Oper. sum</th>
+                <td>\(0\)</td>
+                <td>\(2\)</td>
+                <td>Free bloky souboru + \(1\) inode</td>
+                <td>\(0\)</td>
+                <td>\(2\)x soubor + \(2\)</td>
+                <td>Soubor + \(1\)</td>
+            </tr>
+        </table>
     </div>
 
     <hr>
@@ -166,41 +223,57 @@
     <div class="content hidden" id="coff">
         <div class="matrix" style="width: fit-content;">
             \[
-            \begin{array}{} 
-            &\text{Požadované}\\ &
-            \begin{bmatrix}{}
-                5 & 5 & 4 & 4 \\
-                1 & 1 & 1 & 1 \\
-                4 & 4 & 6 & 4 \\
-                3 & 3 & 8 & 4 \\
-                1 & 0 & 0 & 1
-            \end{bmatrix}
+            \begin{array}{c}
+            \begin{array}{c@{}c@{}c}
+            \begin{array}{c@{}c@{}c}
+            & \text{Pozadovane} \\
+            & \begin{array}{cccc} T_0 & T_1 & T_2 & T_3 \end{array} & \\
+            \begin{array}{c} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{array} &
+            \left[
+            \begin{array}{cccc}
+            5 & 5 & 4 & 4 \\
+            1 & 1 & 1 & 1 \\
+            4 & 4 & 6 & 4 \\
+            3 & 3 & 8 & 4 \\
+            1 & 0 & 0 & 1
             \end{array}
+            \right]
+            \end{array} &
 
-            -
-
-            \begin{array}{} 
-            &\text{Přidělené}\\ &
-            \begin{bmatrix}{}
-                1 & 0 & 2 & 2 \\
-                1 & 0 & 0 & 1 \\
-                3 & 3 & 0 & 1 \\
-                0 & 2 & 2 & 2 \\
-                1 & 0 & 0 & 1
-            \end{bmatrix}
+            -\hspace{1cm}
+            
+            \begin{array}{c@{}c@{}c}
+            & \text{Pridelene} \\
+            & \begin{array}{cccc} T_0 & T_1 & T_2 & T_3 \end{array} & \\
+            \begin{array}{c} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{array} &
+            \left[
+            \begin{array}{cccc}
+            1 & 0 & 2 & 2 \\
+            1 & 0 & 0 & 1 \\
+            3 & 3 & 0 & 1 \\
+            0 & 2 & 2 & 2 \\
+            1 & 0 & 0 & 1
             \end{array}
+            \right]
+            \end{array} &
+            
+            =\hspace{1cm}
 
-            =
-
-            \begin{array}{} 
-            &\text{Potřebné}\\ &
-            \begin{bmatrix}{}
-                4 & 5 & 2 & 2 \\
-                0 & 1 & 1 & 0 \\
-                1 & 1 & 6 & 3 \\
-                3 & 1 & 6 & 2 \\
-                0 & 0 & 0 & 0
-            \end{bmatrix}
+            \begin{array}{c@{}c@{}c}
+            & \text{Potrebne} \\
+            & \begin{array}{cccc} T_0 & T_1 & T_2 & T_3 \end{array} & \\
+            \begin{array}{c} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{array} &
+            \left[
+            \begin{array}{cccc}
+            4 & 5 & 2 & 2 \\
+            0 & 1 & 1 & 0 \\
+            1 & 1 & 6 & 3 \\
+            3 & 1 & 6 & 2 \\
+            0 & 0 & 0 & 0
+            \end{array}
+            \right]
+            \end{array}
+            \end{array}
             \end{array}
             \]
 
@@ -212,9 +285,117 @@
             \end{bmatrix}
             \end{array}
             \]
+
+            <p>
+                P4 je jiz uspokojeny, nyni lze uspokojit P1, tzn pridelime T1,T2 na uspokojeni P1, ty se nam vrati a dostaneme
+                1xT0 a 1xT3, tzn ted mame:
+            </p>
+
+            \[
+            \begin{array}{} 
+            &\text{Počet prostředků}\\ &
+            \begin{bmatrix}{}
+                2 & 1 & 5 & 3
+            \end{bmatrix}
+            \end{array}
+            \]
+
+            \[
+            \begin{array}{c@{}c@{}c}
+            & \text{Potrebne} \\
+            & \begin{array}{cccc} T_0 & T_1 & T_2 & T_3 \end{array} & \\
+            \begin{array}{c} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{array} &
+            \left[
+            \begin{array}{cccc}
+            4 & 5 & 2 & 2 \\
+            0 & 0 & 0 & 0 \\
+            1 & 1 & 6 & 3 \\
+            3 & 1 & 6 & 2 \\
+            0 & 0 & 0 & 0
+            \end{array}
+            \right]
+            \end{array}
+            \]
+
+            <p>
+                nyni vidime, ze jiz nemame prostredky na uspokojeni zadneho dalsiho procesu, tzn nastava DEADLOCK
+            </p>
+            <br><br>
         </div>
         
         <img src="cof.png" alt="" style="width: 35%;">
+    </div>
+
+    <hr>
+
+    <h2 data-target="fork">Fork / Vytváření procesů</h2>
+    <div class="content hidden" id="fork">
+        <div class="code">
+            <code>
+                p = fork();<br>
+                if (0 == p) 
+                    // We're the child process<br><br>
+                else if (p > 0) 
+                    // We're the parent process<br><br>
+                else 
+                    // We're the parent process, but child couldn't be created<br>
+            </code>
+        </div>
+        
+        <br>
+        
+        <div class="code">
+            <code>
+                if (fork() && fork() && fork())<br>
+                &ensp;&ensp;&ensp;&ensp;printf("hello world\n");<br>
+                -----<br>
+                hello world
+            </code>
+        </div>
+
+        <br>
+        
+        <div class="code">
+            <code>
+                if (fork() || fork() || fork())<br>
+                &ensp;&ensp;&ensp;&ensp;printf("hello world\n");<br>
+                -----<br>
+                hello world<br>
+                hello world<br>
+                hello world<br>
+            </code>
+        </div>
+
+        <br>
+        
+        <div class="code">
+            <code>
+                for( int i = 0; i < <span class="mark">X</span>; i++ )<br>
+                &ensp;&ensp;&ensp;&ensp;if( fork() == fork() )<br>
+                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;break;<br>
+            </code>
+            \( \text{Kolik procesu vznikne?} \) <br><br>
+
+            \( 3^0+3^1+3^2+...+3^{\color{red}{x}} = \displaystyle\sum_{i=0}^{\color{red}x} 3^i\)
+        </div>
+
+        <br>
+        
+        <div class="code">
+            <code>
+                char a[4797902]; <-- zasobnik (stack) tzn 4797902B ≈ 5MiB<br><br>
+                char *ptr_char = (char *) malloc (3700521); <-- hlada (heap) tzn 3700521B ≈ 4MiB
+            </code>
+        </div>
+
+        <br>
+
+        <div class="code">
+            <code>
+                execve/execlp - ukončí běžící proces a začne jiný, po dokončení nového procesu se nevrátí zpět do programu<br><br>
+                sleep - program je uspán na určitou dobu, poté pokračuje
+            </code>
+        </div>
     </div>
 
     <hr>

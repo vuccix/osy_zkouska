@@ -399,6 +399,109 @@
     </div>
 
     <hr>
+
+    <h2 data-target="rmp">Otáčky disku</h2>
+    <div class="content hidden" id="rmp">
+        <p>Máme k dispozici pevný disk s následujícími parametry:</p>
+        <ul style="margin-top: -15px;">
+            <li>Kapacita: 1 TiB</li>
+            <li>Velikost sektoru: 4096 B</li>
+            <li>Počet hlav: 2</li>
+            <li>Počet cylindrů: 32768</li>
+            <li>Průměrný počet sektorů na cylindr: 8192</li>
+            <li>Rychlost: 10000 rpm</li>
+            <li>Průměrná doba vystavení hlaviček: 9 ms</li>
+            <li>Doba vystavení hlaviček na sousední cylindr: 3 ms</li>
+        </ul>
+
+        <p>Mozne otazky:</p>
+        <ol>
+            <li>
+                <p data-target="toc1" class="hov">
+                    Jak dlouho bude trvat přečíst soubor o velikosti 7819264 B z disku, pokud je jeho obsah uložen na jednotlivých sektorech náhodně umístěných po disku?
+                </p>
+                <div id="toc1">
+                    <p style="text-decoration: underline;">Potřebné informace:</p>
+                    <ul>
+                        <li>Velikost sektoru: <span class="ans">\(4096 \text{ B}\)</span></li>
+                        <li>Průměrný počet sektorů na cylindr: <span class="ans">\(8192\)</span></li>
+                        <li>Rychlost: <span class="ans">\(10000 \text{ rpm}\)</span></li>
+                        <li>Průměrná doba vystavení hlaviček: <span class="ans">\(9 \text{ ms}\)</span></li>
+                        <li>Velikost souboru <span class="ans">\(7819264 \text{ B}\)</span></li>
+                    </ul>
+    
+                    <p>Zadefinujeme si několik proměnných:</p>
+                    <ul>
+                        <li>
+                            \( A \) = počet sektorů, na kterých se nachází soubor = \( \frac{\text{velikost souboru v bytech}}{\text{velikost sektoru v bytech}} = \frac{7819264}{4096} = \color{palevioletred}{1909} \)
+                        </li>
+                        <li>
+                            \( B \) = počet milisekund, za který proběhne jedna otáčka = \( \frac{\text{počet sekund v jedné minutě}}{\text{rychlost disku v rpm}} = \frac{60}{10000} = 0.006 = \color{palevioletred}{6 \text{ ms}} \)
+                        </li>
+                        <li>
+                            \( C \) = průmerný počet milisekund, za který se hlava otočí na správný sektor = \( \frac{B}{2} = \color{palevioletred}{3 \text{ ms}} \)
+                        </li>
+                        <li>
+                            \( D \) = průmerný počet milisekund, za který se přečte jeden sektor = \( \frac{B}{\text{průměrný počet sektorů na cylindr}} = \color{palevioletred}{\frac{6}{8192}} \)
+                        </li>
+                    </ul>
+
+                    <p><b>Odpověď:</b> \( A \) * (průměrná doba vystavení hlaviček v ms + \(C\) + \(D\))</p>
+                </div>
+            </li>
+
+            <hr style="width: 80%; float: left;">
+            <br>
+
+            <li>
+                <p data-target="toc2" class="hov">
+                    Jak dlouho (v milisekundách) bude trvat přečíst soubor o velikosti 7819264 B z disku, pokud je jeho obsah uložen na sousedních cylindrech?
+                </p>
+                <div id="toc2">
+                    <p style="text-decoration: underline;">Potřebné informace:</p>
+                    <ul>
+                        <li>Velikost sektoru: <span class="ans">\(4096 \text{ B}\)</span></li>
+                        <li>Průměrný počet sektorů na cylindr: <span class="ans">\(8192\)</span></li>
+                        <li>Rychlost: <span class="ans">\(10000 \text{ rpm}\)</span></li>
+                        <li>Průměrná doba vystavení hlaviček: <span class="ans">\(9 \text{ ms}\)</span></li>
+                        <li>Velikost souboru <span class="ans">\(7819264 \text{ B}\)</span></li>
+                    </ul>
+    
+                    <p>Zadefinujeme si několik proměnných:</p>
+                    <ul>
+                        <li>
+                            \( A \) = počet sektorů, na kterých se nachází soubor = \( \frac{\text{velikost souboru v bytech}}{\text{velikost sektoru v bytech}} = \frac{7819264}{4096} = \color{palevioletred}{1909} \)
+                        </li>
+                        <li>
+                            \( B \) = počet milisekund, za který proběhne jedna otáčka = \( \frac{\text{počet sekund v jedné minutě}}{\text{rychlost disku v rpm}} = \frac{60}{10000} = 0.006 = \color{palevioletred}{6 \text{ ms}} \)
+                        </li>
+                        <li>
+                            \( C \) = průmerný počet milisekund, za který se hlava otočí na správný sektor = \( \frac{B}{2} = \color{palevioletred}{3 \text{ ms}} \)
+                        </li>
+                        <li>
+                            \( D \) = průmerný počet milisekund, za který se přečte jeden sektor = \( \frac{B}{\text{průměrný počet sektorů na cylindr}} = \color{palevioletred}{\frac{6}{8192}} \)
+                        </li>
+                        <li>
+                            \( E \) = počet cylindrů, na kterých se nachází soubor = \( \frac{A}{\text{průměrný počet sektorů na cylindr}} = \color{palevioletred}{\frac{1909}{8192}} \)
+                        </li>
+                        <li>\( E_h = \color{palevioletred}{\lceil{E}\rceil} \), \( E_d = \color{palevioletred}{\lfloor{E}\rfloor} \)</li>
+                        <li>
+                            \(
+                            F = \begin{cases}
+                            \color{palevioletred}{E - 1}, & \text{pokud } E \in \mathbb{N} \\
+                            \color{palevioletred}{E_d}, & \text{jinak}
+                            \end{cases}
+                            \)
+                        </li>
+                    </ul>
+
+                    <p><b>Odpověď:</b> \( E * B \) + průměrná doba vystavení hlaviček v ms + \(F\) * doba vystavení hlaviček na sousední cylindr v ms + \(E_h * C\)</p>
+                </div>
+            </li>
+        </ol>
+    </div>
+
+    <hr>
 </body>
 
 <script>

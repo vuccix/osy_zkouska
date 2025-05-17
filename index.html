@@ -16,62 +16,62 @@
     <div class="content hidden" id="raid">
         <h3 data-target="raid_0">RAID 0</h3>
         <ul id="raid_0" class="hidden">
-            <li>Kapacita = <span class="ans">\( \#disk * |disk| \)</span></li>
-            <li>Reading_Speed = <span class="ans">\( min(\#disk * speed, controller, ethernet) \)</span></li>
-            <li>Writing_Speed = <span class="ans">\( Reading\_Speed \)</span></li>
-            <li>Kolik disku muze vypadnout = <span class="ans">\( 0 \)</span></li>
-            <li>No Failure Probability = <span class="ans">\( R(\#month * 2 * 365) = e^{-\frac{t}{\text{MTBF}}} \)</span></li>
-            <li>Cas obnovy = <span class="ans">\( nelze \)</span></li>
+            <li>Kapacita = <span class="ans">\( \#disk \cdot |disk| \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} ethernet) \)</span></li>
+            <li>Writing Speed = <span class="ans">\(\text{Reading Speed}\)</span></li>
+            <li>Kolik disků může vypadnout = <span class="ans">\( 0 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(\#month \cdot 2 \cdot 365) = e^{-\frac{t}{\text{MTBF}}} \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \text{nelze} \)</span></li>
         </ul>
     
         <h3 data-target="raid_1">RAID 1</h3>
         <ul id="raid_1" class="hidden">
-            <li>Kapacita = <span class="ans">\( \frac{\#disk * |disk|}{2} \)</span></li>
-            <li>Reading_Speed = <span class="ans">\( min(2 * speed, controller, ethernet) \)</span></li>
-            <li>Writing_Speed = <span class="ans">\( \frac{Reading\_Speed}{2} \)</span></li>
-            <li>Kolik disku muze vypadnout = <span class="ans">\( 1 \)</span></li>
+            <li>Kapacita = <span class="ans">\( \frac{\#disk \cdot |disk|}{2} \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(2 \cdot speed, {} controller, {} ethernet) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \frac{\text{Reading Speed}}{2} \)</span></li>
+            <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
             <li>No Failure Probability = <span class="ans">\( (1-(1-R(t))^2)^{\#disk/2} \)</span></li>
-            <li>Cas obnovy = <span class="ans">\( \frac{|disk| * 1024}{speed - user} \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \frac{|disk| \cdot 1024}{speed - user} \)</span></li>
         </ul>
         
         <h3 data-target="raid_01">RAID 01</h3>
         <ul id="raid_01" class="hidden">
-            <li>Kapacita = <span class="ans">\( \frac{\#disk * |disk|}{2} \)</span></li>
-            <li>Reading_Speed = <span class="ans">\( min(\#disk * 2 * speed, controller, ethernet) \)</span></li>
-            <li>Writing_Speed = <span class="ans">\( \frac{Reading\_Speed}{2} \)</span></li>
-            <li>Kolik disku muze vypadnout = <span class="ans">\( 1 \)</span></li>
+            <li>Kapacita = <span class="ans">\( \frac{\#disk \cdot |disk|}{2} \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot 2 \cdot speed, {} controller, {} ethernet) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \frac{\text{Reading Speed}}{2} \)</span></li>
+            <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
             <li>No Failure Probability = <span class="ans">\( 1 - (1 - R(t)^{\#disk/2})^2 \)</span></li>
-            <li>Cas obnovy = <span class="ans">\( \frac{\#disk * |disk| * 1024}{Reading\_Speed - user} \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \frac{\#disk \cdot |disk| \cdot 1024}{\text{Reading Speed} - user} \)</span></li>
         </ul>
 
         <h3 data-target="raid_10">RAID 10</h3>
         <ul id="raid_10" class="hidden">
-            <li>Kapacita = <span class="ans">\( \frac{\#disk * |disk|}{2} \)</span></li>
-            <li>Reading_Speed = <span class="ans">\( min(\#disk * 2 * speed, controller, ethernet) \)</span></li>
-            <li>Writing_Speed = <span class="ans">\( \frac{Reading\_Speed}{2} \)</span></li>
-            <li>Kolik disku muze vypadnout = <span class="ans">\( 1 \)</span></li>
+            <li>Kapacita = <span class="ans">\( \frac{\#disk \cdot |disk|}{2} \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot 2 \cdot speed, {} controller, {} ethernet) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \frac{\text{Reading Speed}}{2} \)</span></li>
+            <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
             <li>No Failure Probability = <span class="ans">\( (1-(1-R(t))^2)^{\#disk/2} \)</span></li>
-            <li>Cas obnovy = <span class="ans">\( \frac{|disk| * 1024}{speed - 2 * \frac{user}{\#disk}} \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \frac{|disk| \cdot 1024}{speed - 2 \cdot \frac{user}{\#disk}} \)</span></li>
         </ul>
         
         <h3 data-target="raid_5">RAID 5</h3>
         <ul id="raid_5" class="hidden">
-            <li>Kapacita = <span class="ans">\( (\#disk - 1) * |disk| \)</span></li>
-            <li>Reading_Speed = <span class="ans">\( min((\#disk - 1) * speed, controller, ethernet) \)</span></li>
-            <li>Writing_Speed = <span class="ans">\( \frac{\#disk - 1}{\#disk} * Reading\_Speed \)</span></li>
-            <li>Kolik disku muze vypadnout = <span class="ans">\( 1 \)</span></li>
-            <li>No Failure Probability = <span class="ans">\( R(t)^n + n*R(t)^{n-1} * (1-R(t)), n = \#disk \)</span></li>
-            <li>Cas obnovy = <span class="ans">\( \frac{|disk| * 1024}{\frac{Reading\_Speed - user}{\#disk - 1}} \)</span></li>
+            <li>Kapacita = <span class="ans">\( (\#disk - 1) \cdot |disk| \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min((\#disk - 1) \cdot speed, controller, ethernet) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \frac{\#disk - 1}{\#disk} \cdot \text{Reading Speed} \)</span></li>
+            <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(t)^n + n \cdot R(t)^{n-1} \cdot (1-R(t)), {} n = \#disk \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \frac{|disk| \cdot 1024}{\frac{\text{Reading Speed} - user}{\#disk - 1}} \)</span></li>
         </ul>
         
         <h3 data-target="raid_6">RAID 6</h3>
         <ul id="raid_6" class="hidden">
-            <li>Kapacita = <span class="ans">\( (\#disk -2) * |disk| \)</span></li>
-            <li>Reading_Speed = <span class="ans">\( min((\#disk - 2) * speed, controller, ethernet) \)</span></li>
-            <li>Writing_Speed = <span class="ans">\( \frac{\#disk - 2}{\#disk} * Reading\_Speed \)</span></li>
-            <li>Kolik disku muze vypadnout = <span class="ans">\( 2 \)</span></li>
-            <li>No Failure Probability = <span class="ans">\( R(t)^n + n*R(t)^{n-1}*(1-R(t)) + \binom{n}{2}*R(t)^{n-2}*(1-R(t))^2 \)</span></li>
-            <li>Cas obnovy = <span class="ans">\( \frac{(\#disk - 2)*|disk|*1024}{Reading\_Speed - user} \)</span></li>
+            <li>Kapacita = <span class="ans">\( (\#disk -2) \cdot |disk| \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min((\#disk - 2) \cdot speed, controller, ethernet) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \frac{\#disk - 2}{\#disk} \cdot \text{Reading Speed} \)</span></li>
+            <li>Kolik disků může vypadnout = <span class="ans">\( 2 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(t)^n + n \cdot R(t)^{n-1} \cdot (1-R(t)) + \binom{n}{2} \cdot R(t)^{n-2}\cdot(1-R(t))^2 \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \frac{(\#disk - 2)\cdot|disk|\cdot1024}{\text{Reading Speed} - user} \)</span></li>
         </ul>
     </div>
 
@@ -83,8 +83,8 @@
             Systém používá virtuální paměť se stránkováním. Velikost stránky/rámce je <span class="mark">\(2^x\)</span> B, velikost logické adresy je <span class="mark">\(y\)</span> bitů, velikost fyzické adresy je <span class="mark">\(z\)</span> bitů. Systém používá TLB o velikosti <span class="mark">\(a\)</span> položek (řádek). Na systému právě běží <span class="mark">\(b\)</span> uživatelských procesů...
         </p>
         <ul>
-            <li>Logická adresa se skládá z čísla <span class="ans">stránky</span> o velikosti <span class="mark">\( y - x \)</span>, offset je <span class="mark">\(x\)</span></li>
-            <li>Fyzická adresa se skládá z čísla <span class="ans">rámce</span> o velikosti <span class="mark">\( z - x \)</span>, offset je <span class="mark">\(x\)</span></li>
+            <li>Logická adresa se skládá z čísla <span class="ans">\(\text{stránky}\)</span> o velikosti <span class="mark">\( y - x \)</span>, offset je <span class="mark">\(x\)</span></li>
+            <li>Fyzická adresa se skládá z čísla <span class="ans">\(\text{rámce}\)</span> o velikosti <span class="mark">\( z - x \)</span>, offset je <span class="mark">\(x\)</span></li>
             <li><span class="hov" data-target="ot3">pro 3. otázku vždy platí tyto odpovědi:</span>
                 <ul id="ot3">
                     <li>Pro různě velké stránky je velikost offsetu různá</li>
@@ -146,8 +146,8 @@
             </li>
             <li>8. otazka
                 <ul>
-                    <li>V případě <span class="ans">klasické tabulky</span>: Tabulka stránek bude obsahovat \(2^{y-x}\) řádek</li>
-                    <li>V případě <span class="ans">invertované tabulky</span>: Tabulka stránek bude obsahovat \(2^{z-x}\) řádek</li>
+                    <li>V případě <span class="ans">\( \text{klasické tabulky} \)</span>: Tabulka stránek bude obsahovat <span class="mark">\(2^{y-x}\)</span></li>
+                    <li>V případě <span class="ans">\( \text{invertované tabulky} \)</span>: Tabulka stránek bude obsahovat <span class="mark">\(2^{z-x}\)</span></li>
                 </ul>
             </li>
         </ul>
@@ -219,14 +219,14 @@
 
     <hr>
 
-    <h2 data-target="coff">Úváznutí</h2>
+    <h2 data-target="coff" id="toggleAudio">Úváznutí</h2>
     <div class="content hidden" id="coff">
         <div class="matrix" style="width: fit-content;">
             \[
             \begin{array}{c}
             \begin{array}{c@{}c@{}c}
             \begin{array}{c@{}c@{}c}
-            & \text{Pozadovane} \\
+            & \text{Požadované} \\
             & \begin{array}{cccc} T_0 & T_1 & T_2 & T_3 \end{array} & \\
             \begin{array}{c} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{array} &
             \left[
@@ -243,7 +243,7 @@
             -\hspace{1cm}
             
             \begin{array}{c@{}c@{}c}
-            & \text{Pridelene} \\
+            & \text{Přidělené} \\
             & \begin{array}{cccc} T_0 & T_1 & T_2 & T_3 \end{array} & \\
             \begin{array}{c} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{array} &
             \left[
@@ -260,7 +260,7 @@
             =\hspace{1cm}
 
             \begin{array}{c@{}c@{}c}
-            & \text{Potrebne} \\
+            & \text{Potřebné} \\
             & \begin{array}{cccc} T_0 & T_1 & T_2 & T_3 \end{array} & \\
             \begin{array}{c} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{array} &
             \left[
@@ -287,8 +287,8 @@
             \]
 
             <p>
-                P4 je jiz uspokojeny, nyni lze uspokojit P1, tzn pridelime T1,T2 na uspokojeni P1, ty se nam vrati a dostaneme
-                1xT0 a 1xT3, tzn ted mame:
+                P4 je již uspokojený, nyní lze uspokojit P1, tzn. přidělíme T1,T2 na uspokojení P1, ty se nám vrátí a dostaneme
+                1xT0 a 1xT3, tzn. teď máme:
             </p>
 
             \[
@@ -302,7 +302,7 @@
 
             \[
             \begin{array}{c@{}c@{}c}
-            & \text{Potrebne} \\
+            & \text{Potřebné} \\
             & \begin{array}{cccc} T_0 & T_1 & T_2 & T_3 \end{array} & \\
             \begin{array}{c} P_0 \\ P_1 \\ P_2 \\ P_3 \\ P_4 \end{array} &
             \left[
@@ -318,13 +318,15 @@
             \]
 
             <p>
-                nyni vidime, ze jiz nemame prostredky na uspokojeni zadneho dalsiho procesu, tzn nastava DEADLOCK
+                nyní vidíme, že již nemáme prostředky na uspokojení žádného dalšího procesu, tzn. nastává <span class="mark">\(\text{DEADLOCK}\)</span>
             </p>
             <br><br>
         </div>
         
         <img src="cof.png" alt="" style="width: 35%;">
     </div>
+
+    <audio id="myAudio" src="Deadlock.mp3"></audio>
 
     <hr>
 
@@ -399,110 +401,6 @@
     </div>
 
     <hr>
-
-    <h2 data-target="rmp">Otáčky disku</h2>
-    <div class="content hidden" id="rmp">
-        <p>Máme k dispozici pevný disk s následujícími parametry:</p>
-        <ul style="margin-top: -15px;">
-            <li>Kapacita: 1 TiB</li>
-            <li>Velikost sektoru: 4096 B</li>
-            <li>Počet hlav: 2</li>
-            <li>Počet cylindrů: 32768</li>
-            <li>Průměrný počet sektorů na cylindr: 8192</li>
-            <li>Rychlost: 10000 rpm</li>
-            <li>Průměrná doba vystavení hlaviček: 9 ms</li>
-            <li>Doba vystavení hlaviček na sousední cylindr: 3 ms</li>
-        </ul>
-
-        <p>Mozne otazky:</p>
-        <ol>
-            <li>
-                <p data-target="toc1" class="hov">
-                    Jak dlouho bude trvat přečíst soubor o velikosti 7819264 B z disku, pokud je jeho obsah uložen na jednotlivých sektorech náhodně umístěných po disku?
-                </p>
-                <div id="toc1">
-                    <p style="text-decoration: underline;">Potřebné informace:</p>
-                    <ul>
-                        <li>Velikost sektoru: <span class="ans">\(4096 \text{ B}\)</span></li>
-                        <li>Průměrný počet sektorů na cylindr: <span class="ans">\(8192\)</span></li>
-                        <li>Rychlost: <span class="ans">\(10000 \text{ rpm}\)</span></li>
-                        <li>Průměrná doba vystavení hlaviček: <span class="ans">\(9 \text{ ms}\)</span></li>
-                        <li>Velikost souboru <span class="ans">\(7819264 \text{ B}\)</span></li>
-                    </ul>
-    
-                    <p>Zadefinujeme si několik proměnných:</p>
-                    <ul>
-                        <li>
-                            \( A \) = počet sektorů, na kterých se nachází soubor = \( \frac{\text{velikost souboru v bytech}}{\text{velikost sektoru v bytech}} = \frac{7819264}{4096} = \color{palevioletred}{1909} \)
-                        </li>
-                        <li>
-                            \( B \) = počet milisekund, za který proběhne jedna otáčka = \( \frac{\text{60s}}{\text{RMP}} = \frac{60}{10000} = 0.006 = \color{palevioletred}{6 \text{ ms}} \)
-                        </li>
-                        <li>
-                            \( C \) = průmerný počet milisekund, za který se hlava otočí na správný sektor = \( \frac{B}{2} = \color{palevioletred}{3 \text{ ms}} \)
-                        </li>
-                        <li>
-                            \( D \) = průmerný počet milisekund, za který se přečte jeden sektor = \( \frac{B}{\text{průměrný počet sektorů na cylindr}} = \color{palevioletred}{\frac{6}{8192}} \)
-                        </li>
-                    </ul>
-
-                    <p><b>Odpověď:</b> \( A \) * (průměrná doba vystavení hlaviček v ms + \(C\) + \(D\))</p>
-                </div>
-            </li>
-
-            <hr style="width: 80%; float: left;">
-            <br>
-
-            <li>
-                <p data-target="toc2" class="hov">
-                    Jak dlouho (v milisekundách) bude trvat přečíst soubor o velikosti 7819264 B z disku, pokud je jeho obsah uložen na sousedních cylindrech?
-                </p>
-                <div id="toc2">
-                    <p style="text-decoration: underline;">Potřebné informace:</p>
-                    <ul>
-                        <li>Velikost sektoru: <span class="ans">\(4096 \text{ B}\)</span></li>
-                        <li>Průměrný počet sektorů na cylindr: <span class="ans">\(8192\)</span></li>
-                        <li>Rychlost: <span class="ans">\(10000 \text{ rpm}\)</span></li>
-                        <li>Průměrná doba vystavení hlaviček: <span class="ans">\(9 \text{ ms}\)</span></li>
-                        <li>Doba vystavení hlaviček na sousední cylindr: \( \color{palevioletred}{3 \text{ ms}} \)</li>
-                        <li>Velikost souboru <span class="ans">\(7819264 \text{ B}\)</span></li>
-                    </ul>
-    
-                    <p>Zadefinujeme si několik proměnných:</p>
-                    <ul>
-                        <li>
-                            \( A \) = počet sektorů, na kterých se nachází soubor = \( \frac{\text{velikost souboru v bytech}}{\text{velikost sektoru v bytech}} = \frac{7819264}{4096} = \color{palevioletred}{1909} \)
-                        </li>
-                        <li>
-                            \( B \) = počet milisekund, za který proběhne jedna otáčka = \( \frac{\text{60s}}{\text{RMP}} = \frac{60}{10000} = 0.006 = \color{palevioletred}{6 \text{ ms}} \)
-                        </li>
-                        <li>
-                            \( C \) = průmerný počet milisekund, za který se hlava otočí na správný sektor = \( \frac{B}{2} = \color{palevioletred}{3 \text{ ms}} \)
-                        </li>
-                        <li>
-                            \( D \) = průmerný počet milisekund, za který se přečte jeden sektor = \( \frac{B}{\text{průměrný počet sektorů na cylindr}} = \color{palevioletred}{\frac{6}{8192}} \)
-                        </li>
-                        <li>
-                            \( E \) = počet cylindrů, na kterých se nachází soubor = \( \frac{A}{\text{průměrný počet sektorů na cylindr}} = \color{palevioletred}{\frac{1909}{8192}} \)
-                        </li>
-                        <li>\( E_h = \color{palevioletred}{\lceil{E}\rceil} \), \( E_d = \color{palevioletred}{\lfloor{E}\rfloor} \)</li>
-                        <li>
-                            \(
-                            F = \begin{cases}
-                            \color{palevioletred}{E - 1}, & \text{pokud } E \in \mathbb{N} \\
-                            \color{palevioletred}{E_d}, & \text{jinak}
-                            \end{cases}
-                            \)
-                        </li>
-                    </ul>
-
-                    <p><b>Odpověď:</b> \( E * B \) + průměrná doba vystavení hlaviček v ms + \(F\) * doba vystavení hlaviček na sousední cylindr v ms + \(E_h * C\)</p>
-                </div>
-            </li>
-        </ol>
-    </div>
-
-    <hr>
 </body>
 
 <script>
@@ -520,6 +418,19 @@
             header.addEventListener('click', toggleVisibility);
         });
     });
+</script>
+
+<script>
+  const h2 = document.getElementById("toggleAudio");
+  const audio = document.getElementById("myAudio");
+
+  h2.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
 </script>
 
 </html>

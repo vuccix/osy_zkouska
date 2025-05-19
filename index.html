@@ -20,7 +20,7 @@
             <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} ethernet) \)</span></li>
             <li>Writing Speed = <span class="ans">\(\text{Reading Speed}\)</span></li>
             <li>Kolik disků může vypadnout = <span class="ans">\( 0 \)</span></li>
-            <li>No Failure Probability = <span class="ans">\( R(\#month \cdot 2 \cdot 365) = e^{-\frac{t}{\text{MTBF}}} \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(t) = e^{-\frac{t}{\text{MTBF}}}, {} t = \#month \cdot 24 \cdot \frac{365}{12} \)</span></li>
             <li>Čas obnovy = <span class="ans">\( \text{nelze} \)</span></li>
         </ul>
     
@@ -37,7 +37,7 @@
         <h3 data-target="raid_01">RAID 01</h3>
         <ul id="raid_01" class="hidden">
             <li>Kapacita = <span class="ans">\( \frac{\#disk \cdot |disk|}{2} \)</span></li>
-            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot 2 \cdot speed, {} controller, {} ethernet) \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} ethernet) \)</span></li>
             <li>Writing Speed = <span class="ans">\( \frac{\text{Reading Speed}}{2} \)</span></li>
             <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
             <li>No Failure Probability = <span class="ans">\( 1 - (1 - R(t)^{\#disk/2})^2 \)</span></li>
@@ -47,7 +47,7 @@
         <h3 data-target="raid_10">RAID 10</h3>
         <ul id="raid_10" class="hidden">
             <li>Kapacita = <span class="ans">\( \frac{\#disk \cdot |disk|}{2} \)</span></li>
-            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot 2 \cdot speed, {} controller, {} ethernet) \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} ethernet) \)</span></li>
             <li>Writing Speed = <span class="ans">\( \frac{\text{Reading Speed}}{2} \)</span></li>
             <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
             <li>No Failure Probability = <span class="ans">\( (1-(1-R(t))^2)^{\#disk/2} \)</span></li>
@@ -155,28 +155,28 @@
 
     <hr>
 
-    <h2 data-target="inode">I-Node</h2>
+    <h2 data-target="inode">I-Node (systémy souborů)</h2>
     <div class="content hidden" id="inode">
         <!-- <img class="image" src="inodes-table.jpg" alt=""> -->
 
         <table>
             <tr>
                 <th></th>
-                <th>ln</th>
-                <th>ln -s</th>
-                <th>rm</th>
-                <th>mv (1d)</th>
-                <th>mv (2d)</th>
-                <th>cp</th>
+                <th><code>ln</code></th>
+                <th><code>ln -s</code></th>
+                <th><code>rm -rf</code></th>
+                <th><code>mv (1 FS)</code></th>
+                <th><code>mv (2 FS)</code></th>
+                <th><code>cp</code></th>
             </tr>
             <tr>
                 <th>i-node Read</th>
-                <td>Cesta do adresářů + \(1\)</td>
-                <td>Cesta do cílovéh adr</td>
+                <td>Cesta do obou adresářů + \(1\)</td>
+                <td>Cesta do cílovéh adresáře</td>
                 <td>Cesta do adresáře + \(1\)</td>
-                <td>Cesta do adresářů</td>
-                <td>Cesta do adresářů + \(1\)</td>
-                <td>Cesta do adresářů + \(1\)</td>
+                <td>Cesta do obou adresářů</td>
+                <td>Cesta do obou adresářů + \(1\)</td>
+                <td>Cesta do obou adresářů + \(1\)</td>
             </tr>
             <tr>
                 <th>i-node Write</th>
@@ -189,12 +189,12 @@
             </tr>
             <tr>
                 <th>Block Read</th>
-                <td>i-nodeR - \(1\)</td>
-                <td>i-nodeR</td>
-                <td>Indirect + (i-node - \(1\))</td>
-                <td>i-nodeR</td>
-                <td>(i-nodeR - \(1\)) + soubor</td>
-                <td>(i-nodeR - \(1\)) + soubor</td>
+                <td>i-node Read - \(1\)</td>
+                <td>i-node Read</td>
+                <td>Počet adresářů + počet tabulek nutných k uložení celého souboru</td>
+                <td>i-node Read</td>
+                <td>Datové bloky adresářů na obou cestách + počet datových bloků přesouvaného souboru (datové bloky pro soubor + datové bloky pro tabulky)</td>
+                <td>Datové bloky adresářů na obou cestách + počet tabulek + počet datových bloků souboru</td>
             </tr>
             <tr>
                 <th>Block Write</th>
@@ -202,19 +202,21 @@
                 <td>\(2\)</td>
                 <td>\(1\)</td>
                 <td>\(2\)</td>
-                <td>Soubor + \(2\)</td>
-                <td>Soubor + \(1\)</td>
+                <td>Počet datových bloků souboru + \(2\)</td>
+                <td>Počet tabulek + počet datových bloků souboru + obsah rodičovského adresáře, kam se zkopíroval soubor</td>
             </tr>
             <tr>
-                <th>Oper. sum</th>
+                <th>Kolik operací</th>
                 <td>\(0\)</td>
                 <td>\(2\)</td>
-                <td>Free bloky souboru + \(1\) inode</td>
+                <td>\(1\) i-node souboru + počet datových bloků pro tabulky + počet datových bloků souboru</td>
                 <td>\(0\)</td>
-                <td>\(2\)x soubor + \(2\)</td>
-                <td>Soubor + \(1\)</td>
+                <td>\(2\)x Počet datových bloků včetně tabulek + \(2\)</td>
+                <td>Datové bloky souboru + datové bloky pro tabulky + \(1\)</td>
             </tr>
         </table>
+
+        <p>viz <a href="https://fit-wiki.cz/_media/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-osy/inodes.pdf">dokument</a> na fitwiki</p>
     </div>
 
     <hr>
@@ -402,7 +404,21 @@
 
     <hr>
     
-    <h2 data-target="rmp">Otáčky disku</h2>
+    <h2 data-target="plan">Plánování procesů/vláken</h2>
+    <div class="content hidden" id="plan">
+        <p>TBA</p>
+    </div>
+    
+    <hr>
+
+    <h2 data-target="algo">Algoritmy pro náhradu stránek</h2>
+    <div class="content hidden" id="algo">
+        <p>TBA</p>
+    </div>
+    
+    <hr>
+
+    <h2 data-target="rmp">[old] Otáčky disku</h2>
     <div class="content hidden" id="rmp">
         <p>Máme k dispozici pevný disk s následujícími parametry:</p>
         <ul style="margin-top: -15px;">
@@ -504,12 +520,6 @@
         </ol>
     </div>
 
-    <hr>
-
-    <h2 data-target="plan">Plánování procesů/vláken</h2>
-    <div class="content hidden" id="plan">
-        <p>TBA</p>
-    </div>
     <hr>
 </body>
 

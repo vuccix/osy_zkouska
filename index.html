@@ -14,64 +14,75 @@
     <h1>OSY zkouška</h1>
     <h2 data-target="raid">RAID</h2>
     <div class="content hidden" id="raid">
-        <h3 data-target="raid_0">RAID 0</h3>
+        <p>Nevim jestli jsou vsechny tyhle vzorce spravne, je mozny ze ne. Takhle jsme to nejak ale vymysleli. Za spravnost nerucim</p>
+        <h3 data-target="raid_0">RAID 0 JBOD</h3>
         <ul id="raid_0" class="hidden">
             <li>Kapacita = <span class="ans">\( \#disk \cdot |disk| \)</span></li>
-            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} ethernet) \)</span></li>
-            <li>Writing Speed = <span class="ans">\(\text{Reading Speed}\)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(speed, {} controller, {} Ethernet/Fiber) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \min(speed, {} controller, {} Ethernet/Fiber) \)</span></li>
             <li>Kolik disků může vypadnout = <span class="ans">\( 0 \)</span></li>
-            <li>No Failure Probability = <span class="ans">\( R(t) = e^{-\frac{t}{\text{MTBF}}}, {} t = \#month \cdot 24 \cdot \frac{365}{12} \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(t)^{\#disk} = (e^{-\frac{t}{\text{MTBF}}})^{\#disk}, {} t = \#month \cdot 24 \cdot \frac{365}{12} \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \text{nelze} \)</span></li>
+        </ul>
+        
+        <h3 data-target="raid_0s">RAID 0 Stripe</h3>
+        <ul id="raid_0s" class="hidden">
+            <li>Kapacita = <span class="ans">\( \#disk \cdot |disk| \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} Ethernet/Fiber) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} Ethernet/Fiber) \)</span></li>
+            <li>Kolik disků může vypadnout = <span class="ans">\( 0 \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(t)^{\#disk} \)</span></li>
             <li>Čas obnovy = <span class="ans">\( \text{nelze} \)</span></li>
         </ul>
     
         <h3 data-target="raid_1">RAID 1</h3>
         <ul id="raid_1" class="hidden">
-            <li>Kapacita = <span class="ans">\( \frac{\#disk \cdot |disk|}{2} \)</span></li>
-            <li>Reading Speed = <span class="ans">\( \min(2 \cdot speed, {} controller, {} ethernet) \)</span></li>
-            <li>Writing Speed = <span class="ans">\( \frac{\text{Reading Speed}}{2} \)</span></li>
+            <li>Kapacita = <span class="ans">\( \frac{\#disk}{2} \cdot |disk| \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(2 \cdot speed, {} controller, {} Ethernet/Fiber) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \min(speed, {} \frac{controller}{2}, {} Ethernet/Fiber) \)</span></li>
             <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
             <li>No Failure Probability = <span class="ans">\( (1-(1-R(t))^2)^{\#disk/2} \)</span></li>
-            <li>Čas obnovy = <span class="ans">\( \frac{|disk| \cdot 1024}{speed - user} \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \frac{|disk| \text{ (v MiB)}}{\min(speed - user, \frac{controller - user}{2})} \)</span>, mozna spatne, je dulezite zjistit co je bottleneck</li>
         </ul>
         
         <h3 data-target="raid_01">RAID 01</h3>
         <ul id="raid_01" class="hidden">
-            <li>Kapacita = <span class="ans">\( \frac{\#disk \cdot |disk|}{2} \)</span></li>
-            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} ethernet) \)</span></li>
-            <li>Writing Speed = <span class="ans">\( \frac{\text{Reading Speed}}{2} \)</span></li>
+            <li>Kapacita = <span class="ans">\( \frac{\#disk}{2} \cdot |disk| \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} Ethernet/Fiber) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \min(\frac{\#disk}{2} \cdot speed, {} \frac{controller}{2}, {} Ethernet/Fiber) \)</span></li>
             <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
-            <li>No Failure Probability = <span class="ans">\( 1 - (1 - R(t)^{\#disk/2})^2 \)</span></li>
-            <li>Čas obnovy = <span class="ans">\( \frac{\#disk \cdot |disk| \cdot 1024}{\text{Reading Speed} - user} \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( 1 - (1 - R(t)^{\#disk/2})^2 \)</span>, narazil jsem na par prikladu na FW kde tenhle vzorec neplatil, v jinych zase platil xd</li>
+            <li>Čas obnovy = <span class="ans">\( \frac{\#disk \cdot |disk| \text{ (v MiB)}}{controller - user} \)</span>, pouze kdyz je controller bottleneck</li>
         </ul>
 
         <h3 data-target="raid_10">RAID 10</h3>
         <ul id="raid_10" class="hidden">
-            <li>Kapacita = <span class="ans">\( \frac{\#disk \cdot |disk|}{2} \)</span></li>
-            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} ethernet) \)</span></li>
-            <li>Writing Speed = <span class="ans">\( \frac{\text{Reading Speed}}{2} \)</span></li>
+            <li>Kapacita = <span class="ans">\( \frac{\#disk}{2} \cdot |disk| \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min(\#disk \cdot speed, {} controller, {} Ethernet/Fiber) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \min(\frac{\#disk}{2} \cdot speed, {} \frac{controller}{2}, {} Ethernet/Fiber) \)</span></li>
             <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
             <li>No Failure Probability = <span class="ans">\( (1-(1-R(t))^2)^{\#disk/2} \)</span></li>
-            <li>Čas obnovy = <span class="ans">\( \frac{|disk| \cdot 1024}{speed - 2 \cdot \frac{user}{\#disk}} \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \frac{|disk| \text{ (v MiB)}}{\min(\frac{controller - user}{2}, \frac{speed - user}{\#disk/2})} \)</span>, mozna spatne idk</li>
         </ul>
         
         <h3 data-target="raid_5">RAID 5</h3>
         <ul id="raid_5" class="hidden">
             <li>Kapacita = <span class="ans">\( (\#disk - 1) \cdot |disk| \)</span></li>
-            <li>Reading Speed = <span class="ans">\( \min((\#disk - 1) \cdot speed, controller, ethernet) \)</span></li>
-            <li>Writing Speed = <span class="ans">\( \frac{\#disk - 1}{\#disk} \cdot \text{Reading Speed} \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min((\#disk - 1) \cdot speed, controller, Ethernet/Fiber) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \min((\#disk - 1) \cdot speed, \frac{\#disk-1}{\#disk} \cdot controller, Ethernet/Fiber) \)</span></li>
             <li>Kolik disků může vypadnout = <span class="ans">\( 1 \)</span></li>
             <li>No Failure Probability = <span class="ans">\( R(t)^n + n \cdot R(t)^{n-1} \cdot (1-R(t)), {} n = \#disk \)</span></li>
-            <li>Čas obnovy = <span class="ans">\( \frac{\#disk \cdot |disk| \cdot 1024}{\text{Reading Speed} - user} \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \frac{\#disk \cdot |disk| \text{ (v MiB)}}{controller - user} \)</span>, pouze kdyz je controller bottleneck</li>
         </ul>
         
         <h3 data-target="raid_6">RAID 6</h3>
         <ul id="raid_6" class="hidden">
             <li>Kapacita = <span class="ans">\( (\#disk -2) \cdot |disk| \)</span></li>
-            <li>Reading Speed = <span class="ans">\( \min((\#disk - 2) \cdot speed, controller, ethernet) \)</span></li>
-            <li>Writing Speed = <span class="ans">\( \frac{\#disk - 2}{\#disk} \cdot \text{Reading Speed} \)</span></li>
+            <li>Reading Speed = <span class="ans">\( \min((\#disk - 2) \cdot speed, controller, Ethernet/Fiber) \)</span></li>
+            <li>Writing Speed = <span class="ans">\( \min((\#disk - 2) \cdot speed, \frac{\#disk-2}{\#disk} \cdot controller, Ethernet/Fiber) \)</span></li>
             <li>Kolik disků může vypadnout = <span class="ans">\( 2 \)</span></li>
-            <li>No Failure Probability = <span class="ans">\( R(t)^n + n \cdot R(t)^{n-1} \cdot (1-R(t)) + \binom{n}{2} \cdot R(t)^{n-2}\cdot(1-R(t))^2 \)</span></li>
-            <li>Čas obnovy = <span class="ans">\( \frac{(\#disk - 1)\cdot|disk|\cdot1024}{\text{Reading Speed} - user} \)</span></li>
+            <li>No Failure Probability = <span class="ans">\( R(t)^n + \binom{n}{1} \cdot R(t)^{n-1} \cdot (1-R(t)) + \binom{n}{2} \cdot R(t)^{n-2}\cdot(1-R(t))^2 \)</span></li>
+            <li>Čas obnovy = <span class="ans">\( \frac{(\#disk-1) \cdot |disk| \text{ (v MiB)}}{controller - user} \)</span>, pouze kdyz je controller bottleneck</li>
         </ul>
     </div>
 
@@ -396,7 +407,7 @@
 
         <div class="code">
             <code>
-                execve/execlp - ukončí běžící proces a začne jiný, po dokončení nového procesu se nevrátí zpět do programu<br><br>
+                execve/execlp - ukončí běžící <b>program (proces se neukončí)</b> a začne jiný <b>program</b>, po dokončení nového programu se nevrátí zpět, ale ukončí se<br><br>
                 sleep - program je uspán na určitou dobu, poté pokračuje
             </code>
         </div>
@@ -404,12 +415,12 @@
 
     <hr>
     
-    <h2 data-target="plan">Plánování procesů/vláken</h2>
+    <!-- <h2 data-target="plan">Plánování procesů/vláken</h2>
     <div class="content hidden" id="plan">
         <p>TBA</p>
     </div>
     
-    <hr>
+    <hr> -->
 
     <h2 data-target="algo">Algoritmy pro náhradu stránek</h2>
     <div class="content hidden" id="algo">
